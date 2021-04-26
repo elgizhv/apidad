@@ -6,7 +6,6 @@ class AuthDirective extends SchemaDirectiveVisitor {
     const { resolve = defaultFieldResolver } = field;
 
     field.resolve = async function (...args: any[]) {
-      // extract user from context
       const { user } = args[2];
 
       if (!user) {

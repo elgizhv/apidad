@@ -24,7 +24,7 @@ const auth = async (parent: any, args: any, context: any, info: any) => {
     user = await UserModel.create(userData);
   }
 
-  const token = generateToken({ userId: user?._id });
+  const token = generateToken({ userId: user?._id.toString() });
 
   return { token, user };
 };

@@ -2,10 +2,10 @@ import { gql } from "apollo-server-core";
 
 export default gql`
   extend type Query {
-    user(id: ID): User
+    user: User @auth
   }
   extend type Mutation {
-    user: UserMutation
+    user: UserMutation @auth
   }
   enum UserRole {
     USER

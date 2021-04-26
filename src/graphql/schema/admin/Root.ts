@@ -8,7 +8,7 @@ export default gql`
     root: String
   }
   extend type Mutation {
-    Admin: AdminMutation
+    Admin: AdminMutation @isAdmin
   }
 
   ${User}

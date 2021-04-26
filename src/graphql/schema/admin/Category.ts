@@ -2,11 +2,11 @@ import { gql } from "apollo-server-core";
 
 export default gql`
   extend type AdminMutation {
-    category: AdminCategoryMutation @isAdmin
+    category: AdminCategoryMutation
   }
 
   type AdminCategoryMutation {
-    create(data: AdminCreateCategoryInput): AdminCategory @isAdmin
+    create(data: AdminCreateCategoryInput): AdminCategory
   }
 
   type AdminCategory {

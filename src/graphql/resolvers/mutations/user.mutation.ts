@@ -1,3 +1,3 @@
-export default {
-  // users: (parent: any, args: any, context: any, info: any) => {},
-};
+import { UserModel } from "../../../database/model/User";
+
+export default {};

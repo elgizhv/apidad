@@ -4,10 +4,10 @@ import types from "./types";
 
 export default gql`
   type Query {
-    Root: Boolean @auth
+    Root: Boolean
   }
   type Mutation {
-    Root: Boolean @isAdmin
+    Root: Boolean
   }
 
   ${types}
