@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug App",
+        "type": "pwa-node",
+        "request": "launch",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+            "run-script", "debug"
+        ],
+        "cwd": "${workspaceFolder}",
+        "internalConsoleOptions": "openOnSessionStart",
+        "skipFiles": ["<node_internals>/**", "node_modules/**"],
+        "env": {
+          "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+        },
+        "outputCapture": "std"
+      }
+    ]
+  }
+  
