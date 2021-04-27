@@ -3,6 +3,7 @@ export const COLLECTION_NAME = {
   TRANSACTION: "transactions",
   PRODUCT: "products",
   CATEGORY: "categories",
+  MEDIA: "media",
 };
 
 export const DOCUMENT_NAME = {
@@ -10,4 +11,5 @@ export const DOCUMENT_NAME = {
   TRANSACTION: "Transaction",
   PRODUCT: "Product",
   CATEGORY: "Category",
+  MEDIA: "Media",
 };

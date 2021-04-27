@@ -9,6 +9,7 @@ export default () => {
   const serviceAccount: any = JSON.parse(fs.readFileSync(keyPath).toString());
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
+    storageBucket: "apidado.appspot.com",
   });
   Logger.info("Firebase Connected");
 };

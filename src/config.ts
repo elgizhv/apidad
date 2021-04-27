@@ -24,3 +24,9 @@ export const languages = {
   az: "Azərbaycanca",
 };
 export const defaultLanguage = "az";
+
+export const firebase = {
+  storage: {
+    bucket: process.env.FIREBASE_STORAGE_BUCKET,
+  },
+};
