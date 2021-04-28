@@ -7,13 +7,21 @@ export default gql`
   }
 
   type Product {
+    id: ID
     name: String
     category: Category
     sales: Int
-    picture: String
+    price: Float
+    picture: MediaPhoto
     file: String
     description: String
     demoUrl: String
+    features: [ProductFeature]
+    tags: [String]
+  }
+  type ProductFeature {
+    name: String
+    value: String
   }
   input ProductFilter {
     category: String

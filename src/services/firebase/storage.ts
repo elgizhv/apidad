@@ -1,11 +1,11 @@
 import admin from "firebase-admin";
-import { join, extname } from "path";
+import { join } from "path";
 import { firebase as firebaseConfig } from "../../config";
 import { v4 as uuidv4 } from "uuid";
+import mimeTypes from "mime-types";
 
 export interface uploadFileInput {
   mime: string;
-  name: string;
   buffer: string | Buffer;
   path?: string;
 }
@@ -16,14 +16,9 @@ export const getBucket = () => {
   return admin.storage().bucket(bucketName);
 };
 
-export const uploadFile = async ({
-  name,
-  buffer,
-  path,
-  mime,
-}: uploadFileInput) => {
-  const ext = extname(name);
-  let originName = `${uuidv4()}-${Date.now()}${ext}`;
+export const uploadFile = async ({ buffer, path, mime }: uploadFileInput) => {
+  const ext = mimeTypes.extension(mime);
+  let originName = `${uuidv4()}-${Date.now()}.${ext}`;
   if (path) originName = join(path, originName);
 
   const blob = getBucket().file(originName);
@@ -34,7 +29,7 @@ export const uploadFile = async ({
   });
   const [url] = await blob.getSignedUrl({
     action: "read",
-    expires: "01-01-2050",
+    expires: "01-01-2100",
   });
 
   return { url, ref: originName };

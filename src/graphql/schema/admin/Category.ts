@@ -7,6 +7,8 @@ export default gql`
 
   type AdminCategoryMutation {
     create(data: AdminCreateCategoryInput): AdminCategory
+    update(id: ID, data: AdminCreateCategoryInput): AdminCategory
+    delete(id: ID, recursive: Boolean): Boolean
   }
 
   type AdminCategory {

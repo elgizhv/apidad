@@ -1,6 +1,5 @@
-"use strict";
-const options = {};
-function getSelections(ast) {
+const options: any = {};
+function getSelections(ast: any) {
   if (
     ast &&
     ast.selectionSet &&
@@ -13,11 +12,11 @@ function getSelections(ast) {
   return [];
 }
 
-function isFragment(ast) {
+function isFragment(ast: any) {
   return ast.kind === "InlineFragment" || ast.kind === "FragmentSpread";
 }
 
-function getAST(ast, info) {
+function getAST(ast: any, info: any) {
   if (ast.kind === "FragmentSpread") {
     const fragmentName = ast.name.value;
     return info.fragments[fragmentName];
@@ -25,8 +24,8 @@ function getAST(ast, info) {
   return ast;
 }
 
-function getArguments(ast, info) {
-  return ast.arguments.map((argument) => {
+function getArguments(ast: any, info: any) {
+  return ast.arguments.map((argument: any) => {
     const argumentValue = getArgumentValue(argument.value, info);
 
     return {
@@ -38,7 +37,7 @@ function getArguments(ast, info) {
   });
 }
 
-function getArgumentValue(arg, info) {
+function getArgumentValue(arg: any, info: any) {
   switch (arg.kind) {
     case "FloatValue":
       return parseFloat(arg.value);
@@ -47,9 +46,11 @@ function getArgumentValue(arg, info) {
     case "Variable":
       return info.variableValues[arg.name.value];
     case "ListValue":
-      return arg.values.map((argument) => getArgumentValue(argument, info));
+      return arg.values.map((argument: any) =>
+        getArgumentValue(argument, info)
+      );
     case "ObjectValue":
-      return arg.fields.reduce((argValue, objectField) => {
+      return arg.fields.reduce((argValue: any, objectField: any) => {
         argValue[objectField.name.value] = getArgumentValue(
           objectField.value,
           info
@@ -61,7 +62,7 @@ function getArgumentValue(arg, info) {
   }
 }
 
-function getDirectiveValue(directive, info) {
+function getDirectiveValue(directive: any, info: any) {
   const arg = directive.arguments[0]; // only arg on an include or skip directive is "if"
   if (arg.value.kind !== "Variable") {
     return !!arg.value.value;
@@ -69,12 +70,12 @@ function getDirectiveValue(directive, info) {
   return info.variableValues[arg.value.name.value];
 }
 
-function getDirectiveResults(ast, info) {
+function getDirectiveResults(ast: any, info: any) {
   const directiveResult = {
     shouldInclude: true,
     shouldSkip: false,
   };
-  return ast.directives.reduce((result, directive) => {
+  return ast.directives.reduce((result: any, directive: any) => {
     switch (directive.name.value) {
       case "include":
         return { ...result, shouldInclude: getDirectiveValue(directive, info) };
@@ -86,9 +87,9 @@ function getDirectiveResults(ast, info) {
   }, directiveResult);
 }
 
-function flattenAST(ast, info, obj) {
+function flattenAST(ast: any, info: any, obj?: any) {
   obj = obj || {};
-  return getSelections(ast).reduce((flattened, a) => {
+  return getSelections(ast).reduce((flattened: any, a: any) => {
     if (a.directives && a.directives.length) {
       const { shouldInclude, shouldSkip } = getDirectiveResults(a, info);
       // field/fragment is not included if either the @skip condition is true or the @include condition is false
@@ -101,7 +102,7 @@ function flattenAST(ast, info, obj) {
       flattened = flattenAST(getAST(a, info), info, flattened);
     } else {
       const name = a.name.value;
-      if (options.excludedFields.indexOf(name) !== -1) {
+      if (options?.excludedFields?.indexOf(name) !== -1) {
         return flattened;
       }
       if (flattened[name] && flattened[name] !== "__arguments") {
@@ -123,20 +124,20 @@ function flattenAST(ast, info, obj) {
   }, obj);
 }
 
-module.exports = function graphqlFields({ info, obj = {}, opts = {} } = {}) {
+export default function graphqlFields({ info, obj = {}, opts = {} }: any = {}) {
   const fields = info.fieldNodes || info.fieldASTs;
   options.processArguments = opts.processArguments || false;
   options.excludedFields = opts.excludedFields || [];
   let data =
-    fields.reduce((o, ast) => {
+    fields.reduce((o: any, ast: any) => {
       return flattenAST(ast, info, o);
     }, obj) || {};
 
   if (opts.convertArray === true) {
     data = Object.entries(data)
-      .filter(([k, v]) => Object.keys(v).length == 0)
+      .filter(([k, v]: any) => Object.keys(v).length == 0)
       .map(([k]) => k);
   }
 
   return data;
-};
+}

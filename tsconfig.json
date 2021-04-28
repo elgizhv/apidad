@@ -2,34 +2,26 @@
   "ts-node": {
     "files": true
   },
-    "compilerOptions": {
-      "module": "CommonJS",
-      "skipLibCheck": true,
-      // Import non-ES modules as default imports.
-      "esModuleInterop": true,
-      // Target latest version of ECMAScript.
-      "target": "ES2019",
-      // Process & infer types from .js files.
-      "allowJs": true,
-      // Enable strictNullChecks & noImplicitAny.
-      "strictNullChecks": true,
-      "noImplicitAny": true,
-      "strict": true,
-      "strictFunctionTypes": false,
-      "noImplicitThis": false,
-      // Search under node_modules for non-relative imports.
-      "moduleResolution": "node",
-      // Import .json files
-      "resolveJsonModule": true,
-      "sourceMap": false,
-      "outDir": "build",
-      "baseUrl": ".",
-      "typeRoots": [
-        "./src/types",
-        "node_modules/@types"
-      ]
-    },
-    "include": ["src/**/*"],
-    "exclude": [".templates"]
-  }
-  
+  "compilerOptions": {
+    "module": "CommonJS",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "target": "ES2019",
+    "allowJs": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "noImplicitThis": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": false,
+    "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": [".templates"]
+}

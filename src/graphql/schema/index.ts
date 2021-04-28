@@ -4,6 +4,7 @@ import Admin from "./admin/Root";
 import Category from "./Category";
 import Product from "./Product";
 import Auth from "./Auth";
-const typeDefs = [Root, Admin, Auth, User, Category, Product];
+import Media from "./Media";
+const typeDefs = [Root, Media, Admin, Auth, User, Category, Product];
 
 export default typeDefs;

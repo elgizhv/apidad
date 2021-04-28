@@ -1,7 +1,8 @@
 import { gql } from "apollo-server-express";
 
-import Category from "./Category";
 import User from "./User";
+import Category from "./Category";
+import Product from "./Product";
 
 export default gql`
   type AdminMutation {
@@ -13,4 +14,5 @@ export default gql`
 
   ${User}
   ${Category}
+  ${Product}
 `;
